@@ -15,10 +15,12 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "teetest-import-public-inst" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
-
-  user_data = <<-EOF
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = "t2.micro"
+  subnet_id                   = aws_subnet.teetest-import-public-subnet.id
+  security_groups             = [aws_security_group.teetest-import-sg.id]
+  associate_public_ip_address = true
+  user_data                   = <<-EOF
 #!/usr/bin/env bash
 
 # Non-root part:

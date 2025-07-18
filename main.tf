@@ -3,6 +3,7 @@
 resource "aws_s3_bucket" "tfstate_bucket" {
   bucket = var.bucket_name
 
+
   lifecycle {
     prevent_destroy = false
   }
@@ -23,20 +24,20 @@ resource "aws_s3_bucket_versioning" "tfstate_bucket_ver" {
   bucket = aws_s3_bucket.tfstate_bucket.id
 
   versioning_configuration {
-    status = "Enabled"
+    status = "Suspended"
   }
 }
-resource "aws_dynamodb_table" "tfstate_bucket_lock" {
-  name         = var.lock_table_name
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "LockID"
+# resource "aws_dynamodb_table" "tfstate_bucket_lock" {
+#   name         = var.lock_table_name
+#   billing_mode = "PAY_PER_REQUEST"
+#   hash_key     = "LockID"
 
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
+#   attribute {
+#     name = "LockID"
+#     type = "S"
+#   }
 
-  tags = {
-    Name = "TerraformStateLock"
-  }
-}
+#   tags = {
+#     Name = "TerraformStateLock"
+#   }
+# }
