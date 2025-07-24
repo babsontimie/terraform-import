@@ -23,7 +23,7 @@ resource "aws_instance" "teetest-import-public-inst" {
   user_data                   = <<-EOF
 #!/usr/bin/env bash
 
-# Non-root part:
+# Non-root part  :
 echo "Doing user‑level stuff..."
 
 # Root‑only block:
